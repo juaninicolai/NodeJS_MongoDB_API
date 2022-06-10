@@ -1,11 +1,13 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const { MongoClient } = require("mongodb");
 
 let dbConnection;
-let uri = "mongodb+srv://admin:adminpassword@cluster0.lizqhtt.mongodb.net/?retryWrites=true&w=majority";
+let uri = process.env.MONGODB_CREDENTIAL;
 
 module.exports = {
     connectToDb: (cb) => {
-        MongoClient.connect(uri)
+        MongoClient.connect(`${uri}`)
         .then((client) => {
             dbConnection = client.db();
             return cb();
